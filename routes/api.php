@@ -20,6 +20,7 @@ use App\Models\User;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+    
 });
 
 // Route::group(['middleware' => 'auth:sanctum'], function(){
@@ -39,4 +40,10 @@ Route::get('getproduct', [App\Http\Controllers\Api\ProductController::class, 'vi
 Route::post('saveproduct', [App\Http\Controllers\Api\ProductController::class, 'save_product']);
 Route::post('update/{id}', [App\Http\Controllers\Api\ProductController::class, 'update']);
 Route::get('deleteproduct/{id}', [App\Http\Controllers\Api\ProductController::class, 'delete']);
+
+
+
+
+
+Route::get('send-verify-mail/{email}', [App\Http\Controllers\Api\AuthController::class, 'sendVerifyMail']);
 
