@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\LoginMail;
 use App\Mail\RegisterMail;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Carbon;
+
+
 
 
 class AuthController extends Controller
@@ -38,7 +43,7 @@ class AuthController extends Controller
 
             
     }
-
+//login 
     public function login(Request $request){
         
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])){
@@ -55,5 +60,32 @@ class AuthController extends Controller
             return response(['status'=>false ,'message'=>'Unauthorised user']);
             }
             
+    }
+
+
+    public function sendVerifyMail($email , Request $request)
+    {
+        $this->middleware('auth:sanctum');
+
+        // $user = Auth::user();
+
+        if($request->user()){
+
+
+           $user =  User::where('email', $email)->get();
+            if(count($user) > 0){ 
+                // $data['email'] = $email;
+                $data['title'] = "Email verification";
+                $data['body'] = "plese click to  verify your mail";
+                Mail::send('mail', ['data' => $data],function($message) use ($data){
+                    $message ->to($data['email'])->subject($data['title']);
+                });
+            }else{ 
+                return response(['status'=>false ,'message'=>'user is not found']);
+            }
+        }
+        else{
+        return response(['status'=>false ,'message'=>'user is not authorized']);
+        }
     }
 }
