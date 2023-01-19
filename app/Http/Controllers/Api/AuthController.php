@@ -66,13 +66,14 @@ class AuthController extends Controller
     public function sendVerifyMail($email , Request $request)
     {
         $this->middleware('auth:sanctum');
+
         // $user = Auth::user();
 
         if($request->user()){
 
+
            $user =  User::where('email', $email)->get();
             if(count($user) > 0){ 
-
                 // $data['email'] = $email;
                 $data['title'] = "Email verification";
                 $data['body'] = "plese click to  verify your mail";
@@ -83,7 +84,6 @@ class AuthController extends Controller
                 return response(['status'=>false ,'message'=>'user is not found']);
             }
         }
-
         else{
         return response(['status'=>false ,'message'=>'user is not authorized']);
         }
