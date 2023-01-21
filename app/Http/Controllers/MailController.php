@@ -12,7 +12,7 @@ class MailController extends Controller
 
     public function index(){
         //   try{
-            // $send = Mail::send('mail.demo', [], function ($message) {
+            $send = Mail::send('mail.demo', [], function ($message) {
                /*
                 $message->from('john@johndoe.com', 'John Doe');
                 $message->sender('john@johndoe.com', 'John Doe');
@@ -24,13 +24,13 @@ class MailController extends Controller
                 $message->priority(3);
                 $message->attach('pathToFile');
                 */
-                // $message->to('sandipsatapathy9658@gmail.com', 'Akshay');
+            //     $message->to('akshay8593995890@gmail.com', 'Akshay');
 
 
-              /*  $message->subject('test subject');
+            //   $message->subject('test subject');
            
-               $message->to(User::find(3)->email);
-            $data = User::find(3)->email;*/
+            // //    $message->to(User::find(3)->email);
+            // $data = User::find(3)->email;
 
 
 
@@ -41,7 +41,7 @@ class MailController extends Controller
     
                 // $message->to(User::find(1)->where('email', 1)->first());
 
-            // }); 
+            }); 
 
 
 

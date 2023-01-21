@@ -17,4 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+
 Route::get('mail', [App\Http\Controllers\MailController::class, 'index']);
+
+

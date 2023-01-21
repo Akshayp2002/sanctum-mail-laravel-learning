@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\Auth;
+// use App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 
@@ -42,8 +43,12 @@ Route::post('update/{id}', [App\Http\Controllers\Api\ProductController::class, '
 Route::get('deleteproduct/{id}', [App\Http\Controllers\Api\ProductController::class, 'delete']);
 
 
+Route::post('email/verification-notification', [EmailVerificationController::class, 'sendVerificationEmail'])->middleware('auth:sanctum');
+Route::get('verify-email/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify')->middleware('auth:sanctum');
 
 
 
 Route::get('send-verify-mail/{email}', [App\Http\Controllers\Api\AuthController::class, 'sendVerifyMail']);
 
+
+Route::get('admin', [App\Http\Controllers\Api\AuthController::class, 'admin']);

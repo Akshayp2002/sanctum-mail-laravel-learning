@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\NewUserCreatedEvent;
 use App\Http\Controllers\Controller;
 // use Dotenv\Validator;
+use App\Notifications\WelcomeNotification;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\LoginMail;
@@ -35,10 +38,14 @@ class AuthController extends Controller
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
 
+        NewUserCreatedEvent::dispatch($user);
+
         $success['token'] = $user->createToken('MyApp')->plainTextToken;
         $success['name'] = $user->name;
 
-        Mail::to($user->email)->send(new RegisterMail($user));
+        // Mail::to($user->email)->send(new RegisterMail($user));
+       
+        
         return response(['status'=>'true','data'=>$success ,'message'=>'User registration successfully'],200);
 
             
@@ -51,7 +58,10 @@ class AuthController extends Controller
             $success['token'] = $user->createToken('MyApp')->plainTextToken;
             $success['name'] = $user->name;
 
-            Mail::to($user->email)->send(new LoginMail($user));
+            // Mail::to($user->email)->send(new LoginMail($user));
+            NewUserCreatedEvent::dispatch($user);
+            
+            Notification::send($user, new WelcomeNotification);
            
             return response(['status'=>true,'data'=>$success ,'message'=>'User Login successfully'],200);
 
@@ -88,4 +98,10 @@ class AuthController extends Controller
         return response(['status'=>false ,'message'=>'user is not authorized']);
         }
     }
+
+
+    public function admin(){
+        return view('admin');
+    }
+    
 }
