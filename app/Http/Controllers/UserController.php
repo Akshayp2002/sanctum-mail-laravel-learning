@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\LoginMail;
+use App\Mail\RegisterMail;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Carbon;
 class UserController extends Controller
 {
     //
@@ -29,5 +35,5 @@ class UserController extends Controller
              return response($response, 201);
     }
 
-    
+   
 }
