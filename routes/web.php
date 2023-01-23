@@ -22,4 +22,5 @@ Route::get('/', function () {
 
 Route::get('mail', [App\Http\Controllers\MailController::class, 'index']);
 
+Route::get('sms-notification', [App\Http\Controllers\NotificationController::class, 'sms_notification']);
 

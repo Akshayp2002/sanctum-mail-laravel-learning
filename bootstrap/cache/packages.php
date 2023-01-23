@@ -20,6 +20,17 @@
       0 => 'Laravel\\Tinker\\TinkerServiceProvider',
     ),
   ),
+  'laravel/vonage-notification-channel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Illuminate\\Notifications\\VonageChannelServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Vonage' => 'Illuminate\\Notifications\\Facades\\Vonage',
+    ),
+  ),
   'nesbot/carbon' => 
   array (
     'providers' => 

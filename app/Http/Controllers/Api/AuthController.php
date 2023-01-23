@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\LoginUserEvent;
 use App\Events\NewUserCreatedEvent;
 use App\Http\Controllers\Controller;
 // use Dotenv\Validator;
@@ -59,7 +60,8 @@ class AuthController extends Controller
             $success['name'] = $user->name;
 
             // Mail::to($user->email)->send(new LoginMail($user));
-            NewUserCreatedEvent::dispatch($user);
+            // NewUserCreatedEvent::dispatch($user);
+            LoginUserEvent::dispatch($user);
             
             Notification::send($user, new WelcomeNotification);
            
