@@ -6,9 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\VonageMessage;
 
-//implements should queue functionality will load the email in background
-class WelcomeNotification extends Notification implements ShouldQueue
+class SmsNotification extends Notification
 {
     use Queueable;
 
@@ -39,13 +39,12 @@ class WelcomeNotification extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
-    }
+    public function toVonage($notifiable)
+{
+    return (new VonageMessage)
+                ->content('Your SMS message content')
+                ->from('+916238781287');
+}
 
     /**
      * Get the array representation of the notification.
